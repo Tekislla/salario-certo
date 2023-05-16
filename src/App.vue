@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :style="{background: $vuetify.theme.themes[theme].background}">
     <v-toolbar dense flat class="px-4 pt-2">
 
       <v-toolbar-title>Salário Certo</v-toolbar-title>
@@ -18,6 +18,7 @@
       v-bind="localAttrs"
       :padless="padless"
       class="pa-0"
+      color="background"
     >
       <v-card
         flat
@@ -55,6 +56,9 @@ export default {
         attrs[this.variant] = true
       }
       return attrs
+    },
+    theme () {
+      return (this.$vuetify.theme.dark) ? 'dark' : 'light'
     }
   }
 }
