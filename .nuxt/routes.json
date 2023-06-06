@@ -1,0 +1,14 @@
+[
+  {
+    "name": "faq",
+    "path": "/faq",
+    "component": "C:\\\\faculdade\\\\salario-certo\\\\pages\\\\faq.vue",
+    "chunkName": "pages/faq"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\faculdade\\\\salario-certo\\\\pages\\\\index.vue",
+    "chunkName": "pages/index"
+  }
+]

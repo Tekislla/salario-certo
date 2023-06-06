@@ -5,7 +5,7 @@
         <v-icon @click="voltar">ph ph-arrow-left</v-icon> Fazer outro cálculo
       </h1>
       <h1 class="display-2 textColor--text font-weight-medium pt-8">
-        Meu cálculo
+        Meu cálcu
       </h1>
       <v-row class="pt-4">
         <v-col cols="4">
