@@ -20,7 +20,8 @@ const routes = [
   {
     path: '/resultado',
     name: 'result',
-    component: Result
+    component: Result,
+    props: true
   }
 ]
 
