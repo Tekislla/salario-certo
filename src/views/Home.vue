@@ -178,7 +178,12 @@ export default {
           this.alert = false
         }, 3000)
       } else {
-        console.log(this.calcular())
+        this.$router.push({
+          name: 'result',
+          params: {
+            model: this.calcular()
+          }
+        })
       }
     },
     calcular () {
