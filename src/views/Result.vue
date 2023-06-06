@@ -50,7 +50,7 @@
         <span class="display-1 textColor--text font-weight-medium">
           Resultado
         </span>
-        <v-btn icon>
+        <v-btn icon @click="exportar">
           <v-icon>ph ph-download-simple</v-icon>
         </v-btn>
       </v-row>
@@ -69,11 +69,17 @@
 </template>
 
 <script>
+import TableController from '../controller/TableController.js'
+
 export default {
+  props: {
+    model: {
+      type: Object
+    }
+  },
   name: 'Result',
   data () {
     return {
-      model: {},
       headers: [
         {
           text: 'Evento',
@@ -157,6 +163,23 @@ export default {
           proventos: 65,
           descontos: 7
         }
+      ],
+      colPattern: '"R$ "#,##0.00_);\\("$"#,##0.00\\)',
+      wscols: [
+        { wch: 13 },
+        { wch: 17 },
+        { wch: 22 },
+        { wch: 15 },
+        { wch: 15 },
+        { wch: 15 }
+      ],
+      tableHeaders: [
+        'Salário Bruto',
+        'Pensão Alimentícia',
+        'Número de Dependentes',
+        'Desconto INSS',
+        'Desconto IRRF',
+        'Salário Líquido'
       ]
     }
   },
@@ -173,7 +196,13 @@ export default {
   methods: {
     voltar () {
       this.$router.push('/')
+    },
+    exportar () {
+      TableController.downloadXLSX(this.tableHeaders, this.model, this.colPattern, this.wscols)
     }
+  },
+  mounted () {
+    console.log(this.model)
   }
 }
 </script>
