@@ -2,7 +2,7 @@
   <v-row class="text-left px-15">
     <v-col cols="6" class="pl-7">
       <h1 class="display-2 textColor--text font-weight-bold">
-        Salário C
+        Salário Certo
       </h1>
       <h1 class="title subText--text font-weight-bold pt-8">
         <a class="subtitulo">Calculadora de salário líquido do trabalhador CLT.</a>
