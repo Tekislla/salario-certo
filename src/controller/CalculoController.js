@@ -1,6 +1,6 @@
 export const calcular = (modelSalBruto, modelDescFixo, modelPensaoAlimenticia, modelNumDependentes) => {
   const salBruto = modelSalBruto - modelDescFixo
-  const pensaoAlimenticia = modelPensaoAlimenticia
+  const pensaoAlimenticia = modelPensoAlimenticia
   const numDependentes = modelNumDependentes
   const descontoINSS = getDescontoINSS(salBruto)
   const salDescINSS = salBruto - descontoINSS
