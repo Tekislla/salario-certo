@@ -140,6 +140,9 @@ export default {
         })
       }
     }
+  },
+  mounted () {
+    document.title = 'Salário Certo'
   }
 }
 </script>
