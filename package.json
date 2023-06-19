@@ -12,6 +12,7 @@
     "@mdi/font": "^7.2.96",
     "@mdi/js": "^7.2.96",
     "core-js": "^3.8.3",
+    "eslint-plugin-vue": "^9.15.0",
     "phosphor-icons": "^1.4.2",
     "v-mask": "^2.3.0",
     "vue": "^2.6.14",

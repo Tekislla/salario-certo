@@ -93,7 +93,7 @@ import ValidationController from '../controller/ValidationController.js'
 import CalculoController from '../controller/CalculoController.js'
 
 export default {
-  name: 'Home',
+  name: 'Home-view',
   components: {
     VuetifyMoney
   },

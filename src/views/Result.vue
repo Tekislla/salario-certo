@@ -1,6 +1,6 @@
 <template>
   <v-row class="text-left px-15">
-    <v-col cols="9" class="pl-7">
+    <v-col cols="10" class="pl-7">
       <h1 class="title textColor--text font-weight-bold">
         <v-icon @click="voltar">ph ph-arrow-left</v-icon> Fazer outro cálculo
       </h1>
@@ -8,7 +8,7 @@
         Meu cálculo
       </h1>
       <v-row class="pt-4">
-        <v-col cols="4">
+        <v-col cols="3">
           <v-card color="cardColor">
             <v-card-text class="d-flex justify-space-between pa-2">
               <span class="subtitle-2 textColor--text font-weight-medium">
@@ -20,7 +20,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="3">
           <v-card color="cardColor">
             <v-card-text class="d-flex justify-space-between pa-2">
               <span class="subtitle-2 textColor--text font-weight-medium">
@@ -32,7 +32,19 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="3">
+          <v-card color="cardColor">
+            <v-card-text class="d-flex justify-space-between pa-2">
+              <span class="subtitle-2 textColor--text font-weight-medium">
+                Pensão alimentícia
+              </span>
+              <span class="subtitle-2 textColor--text font-weight-medium">
+                R$ {{ model.pensaoAlimenticia }}
+              </span>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="3">
           <v-card color="cardColor">
             <v-card-text class="d-flex justify-space-between pa-2">
               <span class="subtitle-2 textColor--text font-weight-medium">
@@ -59,8 +71,9 @@
           <v-data-table
             color="cardColor"
             :headers="headers"
-            :items="desserts"
-            :items-per-page="5"
+            :items="calculo"
+            :items-per-page="6"
+            hide-default-footer
             class="elevation-1"/>
         </v-col>
       </v-row>
@@ -77,7 +90,7 @@ export default {
       type: Object
     }
   },
-  name: 'Result',
+  name: 'Result-view',
   data () {
     return {
       headers: [
@@ -87,81 +100,43 @@ export default {
           sortable: false,
           value: 'name'
         },
-        { text: 'Base', value: 'base' },
-        { text: 'Efetiva', value: 'efetiva' },
-        { text: 'Proventos', value: 'proventos' },
+        { text: 'Alíquota Real', value: 'aliquota' },
+        { text: 'Proventos', value: 'efetiva' },
         { text: 'Descontos', value: 'descontos' }
       ],
-      desserts: [
+      calculo: [
         {
-          name: 'Frozen Yogurt',
-          base: 159,
-          efetiva: 6.0,
-          proventos: 24,
-          descontos: 4.0
+          name: 'Salário bruto',
+          aliquota: '-',
+          proventos: 'R$ ' + this.model.salBruto,
+          descontos: '-'
         },
         {
-          name: 'Ice cream sandwich',
-          base: 237,
-          efetiva: 9.0,
-          proventos: 37,
-          descontos: 4.3
+          name: 'Outros',
+          base: '-',
+          proventos: '-',
+          descontos: 'R$ ' + (parseInt(this.model.pensaoAlimenticia) + parseInt(this.model.descFixo))
         },
         {
-          name: 'Eclair',
-          base: 262,
-          efetiva: 16.0,
-          proventos: 23,
-          descontos: 6.0
+          name: 'INSS',
+          base: 'adicionar %',
+          efetiva: '-',
+          proventos: '-',
+          descontos: 'R$ ' + this.model.descontoINSS.toFixed(2)
         },
         {
-          name: 'Cupcake',
-          base: 305,
-          efetiva: 3.7,
-          proventos: 67,
-          descontos: 4.3
+          name: 'IRRF',
+          base: 'adicionar %',
+          efetiva: '-',
+          proventos: '-',
+          descontos: 'R$ ' + this.model.descontoIRRF.toFixed(2)
         },
         {
-          name: 'Gingerbread',
-          base: 356,
-          efetiva: 16.0,
-          proventos: 49,
-          descontos: 3.96
-        },
-        {
-          name: 'Jelly bean',
-          base: 375,
-          efetiva: 0.0,
-          proventos: 94,
-          descontos: 0.0
-        },
-        {
-          name: 'Lollipop',
-          base: 392,
-          efetiva: 0.2,
-          proventos: 98,
-          descontos: 0
-        },
-        {
-          name: 'Honeycomb',
-          base: 408,
-          efetiva: 3.2,
-          proventos: 87,
-          descontos: 6.55
-        },
-        {
-          name: 'Donut',
-          base: 452,
-          efetiva: 25.0,
-          proventos: 51,
-          descontos: 4.92
-        },
-        {
-          name: 'KitKat',
-          base: 518,
-          efetiva: 26.0,
-          proventos: 65,
-          descontos: 7
+          name: 'Valor Salário líquido',
+          base: ' ',
+          efetiva: ' ',
+          proventos: 'R$ ' + this.model.salLiquido.toString(),
+          descontos: ' '
         }
       ],
       colPattern: '"R$ "#,##0.00_);\\("$"#,##0.00\\)',
@@ -183,16 +158,6 @@ export default {
       ]
     }
   },
-  // computed: {
-  //   model: {
-  //     get () {
-  //       return this.$store.state.calculadora.model
-  //     },
-  //     set (value) {
-  //       return this.$store.commit('calculadora/model', value)
-  //     }
-  //   }
-  // },
   methods: {
     voltar () {
       this.$router.push('/')

@@ -6,9 +6,6 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon class="ml-4">
-        <v-icon>ph ph-moon</v-icon>
-      </v-btn>
     </v-toolbar>
 
     <v-main>

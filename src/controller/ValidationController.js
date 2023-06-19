@@ -4,7 +4,7 @@ export const validarDados = (salBruto, descFixo, pensaoAlimenticia, numDependent
     msg: ''
   }
   if (salBruto === 0) {
-    res.msg = 'Salário bruto não pode ser 0'
+    res.msg = 'Salário bruto não pode ser R$ 0,00'
   } else if (salBruto < 1302.00) {
     res.msg = 'O salário informado precisa ser acima de um salário mínimo'
   } else if (salBruto === null || salBruto === undefined || salBruto === '') {

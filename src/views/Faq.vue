@@ -16,3 +16,9 @@
     </v-row>
   </container>
 </template>
+
+<script>
+export default {
+  name: 'Faq-view'
+}
+</script>
