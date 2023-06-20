@@ -33,19 +33,53 @@ export const getDescontoINSS = (salBruto) => {
   }
 }
 
-export const getDescontoIRRF = (salBruto, numDependentes, pensaoAlimenticia) => {
-  const descDependentes = numDependentes * 189.59
-  if (salBruto < 1903.98) {
-    return 0
-  } else if (salBruto > 1903.99 && salBruto < 2826.65) {
-    return (salBruto * 0.075) - 142.8 - descDependentes - pensaoAlimenticia
-  } else if (salBruto > 2826.66 && salBruto < 3751.05) {
-    return (salBruto * 0.15) - 354.8 - descDependentes - pensaoAlimenticia
-  } else if (salBruto > 3751.06 && salBruto < 4664.68) {
-    return (salBruto * 0.225) - 636.13 - descDependentes - pensaoAlimenticia
+export const getFaixaINSS = (salBruto) => {
+  if (salBruto === 1302.00) {
+    return '7.5%'
+  } else if (salBruto > 1302.01 && salBruto < 2571.29) {
+    return '9%'
+  } else if (salBruto > 2571.30 && salBruto < 3856.94) {
+    return '12%'
+  } else if (salBruto > 3856.95 && salBruto < 7507.49) {
+    return '14%'
   } else {
-    return (salBruto * 0.275) - 869.36 - descDependentes - pensaoAlimenticia
+    return 'Teto'
   }
 }
 
-export default { calcular, getDescontoINSS, getDescontoIRRF }
+export const getDescontoIRRF = (salBruto, numDependentes, pensaoAlimenticia) => {
+  let val = 0
+  const descDependentes = numDependentes * 189.59
+  if (salBruto < 1903.98) {
+    return val
+  } else if (salBruto > 1903.99 && salBruto < 2826.65) {
+    val = (salBruto * 0.075) - 142.8 - descDependentes - pensaoAlimenticia
+  } else if (salBruto > 2826.66 && salBruto < 3751.05) {
+    val = (salBruto * 0.15) - 354.8 - descDependentes - pensaoAlimenticia
+  } else if (salBruto > 3751.06 && salBruto < 4664.68) {
+    val = (salBruto * 0.225) - 636.13 - descDependentes - pensaoAlimenticia
+  } else {
+    val = (salBruto * 0.275) - 869.36 - descDependentes - pensaoAlimenticia
+  }
+  if (val > 0) {
+    return val
+  } else {
+    return 0
+  }
+}
+
+export const getFaixaIRRF = (salBruto) => {
+  if (salBruto < 1903.98) {
+    return '0%'
+  } else if (salBruto > 1903.99 && salBruto < 2826.65) {
+    return '7.5%'
+  } else if (salBruto > 2826.66 && salBruto < 3751.05) {
+    return '15%'
+  } else if (salBruto > 3751.06 && salBruto < 4664.68) {
+    return '22.5%'
+  } else {
+    return '27.5%'
+  }
+}
+
+export default { calcular, getDescontoINSS, getFaixaINSS, getDescontoIRRF, getFaixaIRRF }

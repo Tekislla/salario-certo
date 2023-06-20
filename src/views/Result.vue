@@ -1,11 +1,11 @@
 <template>
   <v-row class="text-left px-15">
     <v-col cols="10" class="pl-7">
-      <h1 class="title textColor--text font-weight-bold">
+      <h1 class="subtitle-1 subText--text font-weight-medium pt-6">
         <v-icon @click="voltar">ph ph-arrow-left</v-icon> Fazer outro cálculo
       </h1>
-      <h1 class="display-2 textColor--text font-weight-medium pt-8">
-        Meu cálculo
+      <h1 class="titulo display-2 textColor--text font-weight-medium pt-8">
+        Meu salário
       </h1>
       <v-row class="pt-4">
         <v-col cols="3">
@@ -14,8 +14,8 @@
               <span class="subtitle-2 textColor--text font-weight-medium">
                 Salário bruto
               </span>
-              <span class="subtitle-2 textColor--text font-weight-medium">
-                R$ {{ model.salBruto }}
+              <span class="text-value  subtitle-2 font-weight-medium">
+                R$ {{ model.salBruto.toFixed(2) }}
               </span>
             </v-card-text>
           </v-card>
@@ -26,8 +26,8 @@
               <span class="subtitle-2 textColor--text font-weight-medium">
                 Descontos
               </span>
-              <span class="subtitle-2 textColor--text font-weight-medium">
-                R$ {{ model.descFixo }}
+              <span class="text-value subtitle-2 font-weight-medium">
+                R$ {{ model.descFixo.toFixed(2) }}
               </span>
             </v-card-text>
           </v-card>
@@ -38,8 +38,8 @@
               <span class="subtitle-2 textColor--text font-weight-medium">
                 Pensão alimentícia
               </span>
-              <span class="subtitle-2 textColor--text font-weight-medium">
-                R$ {{ model.pensaoAlimenticia }}
+              <span class="text-value subtitle-2 font-weight-medium">
+                R$ {{ model.pensaoAlimenticia.toFixed(2) }}
               </span>
             </v-card-text>
           </v-card>
@@ -50,7 +50,7 @@
               <span class="subtitle-2 textColor--text font-weight-medium">
                 Número de dependentes
               </span>
-              <span class="subtitle-2 textColor--text font-weight-medium">
+              <span class="text-value subtitle-2 font-weight-medium">
                 {{ model.numDependentes }}
               </span>
             </v-card-text>
@@ -58,13 +58,13 @@
         </v-col>
         <v-divider inset />
       </v-row>
-      <v-row class="d-flex justify-space-between pt-5 pl-3">
-        <span class="display-1 textColor--text font-weight-medium">
-          Resultado
+      <v-row class="d-flex justify-space-between pt-6 pl-3">
+        <span class="text-value display-1 font-weight-medium">
+          Detalhamento
         </span>
-        <v-btn icon @click="exportar">
-          <v-icon>ph ph-download-simple</v-icon>
-        </v-btn>
+          <v-btn icon @click="exportar">
+            <v-icon>ph ph-download-simple</v-icon>
+          </v-btn>
       </v-row>
       <v-row class="pt-4">
         <v-col cols="12">
@@ -83,6 +83,7 @@
 
 <script>
 import TableController from '../controller/TableController.js'
+import CalculoController from '../controller/CalculoController'
 
 export default {
   props: {
@@ -108,34 +109,31 @@ export default {
         {
           name: 'Salário bruto',
           aliquota: '-',
-          proventos: 'R$ ' + this.model.salBruto,
+          efetiva: 'R$ ' + this.model.salBruto.toFixed(2),
           descontos: '-'
         },
         {
           name: 'Outros',
-          base: '-',
-          proventos: '-',
+          aliquota: '-',
+          efetiva: '-',
           descontos: 'R$ ' + (parseInt(this.model.pensaoAlimenticia) + parseInt(this.model.descFixo))
         },
         {
           name: 'INSS',
-          base: 'adicionar %',
+          aliquota: this.getFaixaINSS(this.model.salBruto),
           efetiva: '-',
-          proventos: '-',
           descontos: 'R$ ' + this.model.descontoINSS.toFixed(2)
         },
         {
           name: 'IRRF',
-          base: 'adicionar %',
+          aliquota: this.getFaixaIRRF(this.model.salBruto - this.model.descontoINSS),
           efetiva: '-',
-          proventos: '-',
           descontos: 'R$ ' + this.model.descontoIRRF.toFixed(2)
         },
         {
           name: 'Valor Salário líquido',
-          base: ' ',
-          efetiva: ' ',
-          proventos: 'R$ ' + this.model.salLiquido.toString(),
+          aliquota: ' ',
+          efetiva: 'R$ ' + this.model.salLiquido.toFixed(2),
           descontos: ' '
         }
       ],
@@ -164,6 +162,12 @@ export default {
     },
     exportar () {
       TableController.downloadXLSX(this.tableHeaders, this.model, this.colPattern, this.wscols)
+    },
+    getFaixaINSS (val) {
+      return CalculoController.getFaixaINSS(val)
+    },
+    getFaixaIRRF (val) {
+      return CalculoController.getFaixaIRRF(val)
     }
   },
   mounted () {
@@ -171,3 +175,11 @@ export default {
   }
 }
 </script>
+<style>
+.titulo {
+  padding-bottom: 40px;
+}
+.text-value {
+  color: #094c64;
+}
+</style>
