@@ -1,12 +1,13 @@
 export const calcular = (modelSalBruto, modelDescFixo, modelPensaoAlimenticia, modelNumDependentes) => {
-  const salBruto = modelSalBruto - modelDescFixo
-  const descFixo = modelDescFixo
-  const pensaoAlimenticia = modelPensaoAlimenticia
-  const numDependentes = modelNumDependentes
-  const descontoINSS = getDescontoINSS(salBruto)
-  const salDescINSS = salBruto - descontoINSS
+  const salBruto = parseFloat(modelSalBruto)
+  const salBrutoAux = modelSalBruto - modelDescFixo
+  const descFixo = parseFloat(modelDescFixo)
+  const pensaoAlimenticia = parseFloat(modelPensaoAlimenticia)
+  const numDependentes = parseInt(modelNumDependentes)
+  const descontoINSS = getDescontoINSS(salBrutoAux)
+  const salDescINSS = salBrutoAux - descontoINSS
   const descontoIRRF = getDescontoIRRF(salDescINSS, numDependentes, pensaoAlimenticia)
-  const salLiquido = salBruto - descontoINSS - descontoIRRF
+  const salLiquido = salBrutoAux - descontoINSS - descontoIRRF
 
   return {
     salBruto,

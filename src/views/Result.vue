@@ -15,7 +15,7 @@
                 Salário bruto
               </span>
               <span class="text-value  subtitle-2 font-weight-medium">
-                R$ {{ model.salBruto.toFixed(2) }}
+                {{ this.formatMoney(model.salBruto) }}
               </span>
             </v-card-text>
           </v-card>
@@ -27,7 +27,7 @@
                 Descontos
               </span>
               <span class="text-value subtitle-2 font-weight-medium">
-                R$ {{ model.descFixo.toFixed(2) }}
+                {{ this.formatMoney(model.descFixo) }}
               </span>
             </v-card-text>
           </v-card>
@@ -39,7 +39,7 @@
                 Pensão alimentícia
               </span>
               <span class="text-value subtitle-2 font-weight-medium">
-                R$ {{ model.pensaoAlimenticia.toFixed(2) }}
+                {{ this.formatMoney(model.pensaoAlimenticia) }}
               </span>
             </v-card-text>
           </v-card>
@@ -109,31 +109,31 @@ export default {
         {
           name: 'Salário bruto',
           aliquota: '-',
-          efetiva: 'R$ ' + this.model.salBruto.toFixed(2),
+          efetiva: this.formatMoney(this.model.salBruto),
           descontos: '-'
         },
         {
           name: 'Outros',
           aliquota: '-',
           efetiva: '-',
-          descontos: 'R$ ' + (parseInt(this.model.pensaoAlimenticia) + parseInt(this.model.descFixo))
+          descontos: this.formatMoney((this.model.pensaoAlimenticia + this.model.descFixo))
         },
         {
           name: 'INSS',
-          aliquota: this.getFaixaINSS(this.model.salBruto),
+          aliquota: this.formatAliquota(this.getFaixaINSS(this.model.salBruto)),
           efetiva: '-',
-          descontos: 'R$ ' + this.model.descontoINSS.toFixed(2)
+          descontos: this.formatMoney(this.model.descontoINSS)
         },
         {
           name: 'IRRF',
-          aliquota: this.getFaixaIRRF(this.model.salBruto - this.model.descontoINSS),
+          aliquota: this.formatAliquota(this.getFaixaIRRF(this.model.salBruto - this.model.descontoINSS)),
           efetiva: '-',
-          descontos: 'R$ ' + this.model.descontoIRRF.toFixed(2)
+          descontos: this.formatMoney(this.model.descontoIRRF)
         },
         {
           name: 'Valor Salário líquido',
           aliquota: ' ',
-          efetiva: 'R$ ' + this.model.salLiquido.toFixed(2),
+          efetiva: this.formatMoney(this.model.salLiquido),
           descontos: ' '
         }
       ],
@@ -168,10 +168,18 @@ export default {
     },
     getFaixaIRRF (val) {
       return CalculoController.getFaixaIRRF(val)
+    },
+    formatMoney (val) {
+      return 'R$ ' + val.toFixed(2).replace('.', ',')
+    },
+    formatAliquota (val) {
+      return val.replace('.', ',')
     }
   },
   mounted () {
-    console.log(this.model)
+    if (this.model === undefined) {
+      this.$router.push('/')
+    }
   }
 }
 </script>
