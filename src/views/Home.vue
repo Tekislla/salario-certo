@@ -110,7 +110,7 @@ export default {
         prefix: 'R$',
         suffix: '',
         length: 9,
-        precision: 0
+        precision: 2
       },
       alert: false,
       mensagemErro: ''
