@@ -1,25 +1,27 @@
 <template>
   <v-app :style="{background: $vuetify.theme.themes[theme].background}">
-    <v-toolbar dense flat class="px-4 pt-2">
-
-      <v-toolbar-title>Salário Certo</v-toolbar-title>
-
+    <v-app-bar flat app class="pt-4 pl-15 pr-11" color="background">
       <v-spacer></v-spacer>
-
-    </v-toolbar>
-
-    <v-main>
+      <v-switch
+          class="pt-3"
+          inset
+          :prepend-icon="$vuetify.theme.dark ? 'ph ph-moon-stars' : 'ph ph-sun-dim'"
+          :value="darkMode"
+          @change="toggleDarkMode"
+        ></v-switch>
+    </v-app-bar>
+    <v-main class="d-flex justify-center align-center">
       <router-view/>
     </v-main>
      <v-footer
       v-bind="localAttrs"
       :padless="padless"
       class="pa-0"
-      color="background"
     >
       <v-card
         flat
         tile
+        color="background"
         width="100%"
         class="text-center"
       >
@@ -34,14 +36,18 @@
 </template>
 
 <script>
-
 export default {
   name: 'App',
-
   data: () => ({
-    padless: false
-    //
+    padless: false,
+    darkMode: false
   }),
+  methods: {
+    toggleDarkMode: function () {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+      this.darkMode = !this.darkMode
+    }
+  },
   computed: {
     localAttrs () {
       const attrs = {}
@@ -56,6 +62,9 @@ export default {
     },
     theme () {
       return (this.$vuetify.theme.dark) ? 'dark' : 'light'
+    },
+    switchLabel: function () {
+      return this.darkMode ? 'light' : 'dark'
     }
   }
 }
