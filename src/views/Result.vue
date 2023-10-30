@@ -58,13 +58,13 @@
         </v-col>
         <v-divider inset />
       </v-row>
-      <v-row class="d-flex justify-space-between pt-6 px-3">
+      <v-row class="d-flex justify-space-between pt-6 pl-3">
         <span class="text-value textColor--text display-1 font-weight-medium">
           Detalhamento
         </span>
-        <v-btn outlined small @click="exportar">
-          download <v-icon class="pl-1">ph ph-download-simple</v-icon>
-        </v-btn>
+          <v-btn icon @click="exportar">
+            <v-icon>ph ph-download-simple</v-icon>
+          </v-btn>
       </v-row>
       <v-row class="pt-4">
         <v-col cols="12">
