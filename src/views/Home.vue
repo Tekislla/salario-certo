@@ -1,5 +1,5 @@
 <template>
-  <v-row class="text-left px-15 d-flex justify-center">
+  <v-row class="text-left px-15">
     <v-col cols="6" class="pl-7">
       <h1 class="display-2 textColor--text font-weight-bold">
         Salário Certo
@@ -13,7 +13,7 @@
         Preencha seus dados e calcule já o seu salário líquido!
       </h1>
       <v-btn
-        class="font-weight-bold background--text mt-8 px-9"
+        class="font-weight-bold mt-8 px-9"
         color="primary"
         large
         @click="handleFAQ">FAQ</v-btn>
@@ -65,7 +65,7 @@
               large
               @click="handleClear">Limpar</v-btn>
             <v-btn
-              class="font-weight-bold background--text px-9"
+              class="font-weight-bold px-9"
               color="primary"
               @click="validarDados"
               large>Calcular</v-btn>

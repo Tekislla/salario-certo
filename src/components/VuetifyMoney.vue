@@ -71,7 +71,7 @@ export default {
     },
     backgroundColor: {
       type: String,
-      default: 'cardColor'
+      default: '#fafafa'
     },
     valueWhenIsEmpty: {
       type: String,

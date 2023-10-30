@@ -18,7 +18,7 @@ const vuetify = new Vuetify({
         primary: '#E9EBF2',
         secondary: '#b0bec5',
         accent: '#8c9eff',
-        error: '#B80606',
+        error: '#b71c1c',
         subText: '#979797',
         cardColor: '#1E293B',
         textColor: '#FFFEFC',
