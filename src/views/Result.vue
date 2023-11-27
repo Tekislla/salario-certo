@@ -14,7 +14,7 @@
               <span class="subtitle-2 textColor--text font-weight-medium">
                 Salário bruto
               </span>
-              <span class="text-value  subtitle-2 font-weight-medium">
+              <span class="text-value textColor--text subtitle-2 font-weight-medium">
                 {{ this.formatMoney(model.salBruto) }}
               </span>
             </v-card-text>
@@ -26,7 +26,7 @@
               <span class="subtitle-2 textColor--text font-weight-medium">
                 Descontos
               </span>
-              <span class="text-value subtitle-2 font-weight-medium">
+              <span class="text-value textColor--text subtitle-2 font-weight-medium">
                 {{ this.formatMoney(model.descFixo) }}
               </span>
             </v-card-text>
@@ -38,7 +38,7 @@
               <span class="subtitle-2 textColor--text font-weight-medium">
                 Pensão alimentícia
               </span>
-              <span class="text-value subtitle-2 font-weight-medium">
+              <span class="text-value textColor--text subtitle-2 font-weight-medium">
                 {{ this.formatMoney(model.pensaoAlimenticia) }}
               </span>
             </v-card-text>
@@ -50,7 +50,7 @@
               <span class="subtitle-2 textColor--text font-weight-medium">
                 Número de dependentes
               </span>
-              <span class="text-value subtitle-2 font-weight-medium">
+              <span class="text-value textColor--text subtitle-2 font-weight-medium">
                 {{ model.numDependentes }}
               </span>
             </v-card-text>
@@ -58,13 +58,13 @@
         </v-col>
         <v-divider inset />
       </v-row>
-      <v-row class="d-flex justify-space-between pt-6 pl-3">
-        <span class="text-value display-1 font-weight-medium">
+      <v-row class="d-flex justify-space-between pt-6 px-3">
+        <span class="text-value textColor--text display-1 font-weight-medium">
           Detalhamento
         </span>
-          <v-btn icon @click="exportar">
-            <v-icon>ph ph-download-simple</v-icon>
-          </v-btn>
+        <v-btn outlined small @click="exportar">
+          download <v-icon class="pl-1">ph ph-download-simple</v-icon>
+        </v-btn>
       </v-row>
       <v-row class="pt-4">
         <v-col cols="12">
